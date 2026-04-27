@@ -1,0 +1,47 @@
+@import "tailwindcss/theme.css" layer(theme);
+@import "tailwindcss/preflight.css" layer(base);
+@import "tailwindcss/utilities.css";
+
+@import "nativewind/theme";
+
+@theme {
+    /* Plus Jakarta Sans — SF Pro Display alternative */
+    --font-jakarta: "PlusJakartaSans-Regular";
+    --font-jakarta-md: "PlusJakartaSans-Medium";
+    --font-jakarta-sb: "PlusJakartaSans-SemiBold";
+    --font-jakarta-bd: "PlusJakartaSans-Bold";
+    --font-jakarta-eb: "PlusJakartaSans-ExtraBold";
+
+    /* Inter — SF Pro Text alternative */
+    --font-inter: "Inter-Regular";
+    --font-inter-md: "Inter-Medium";
+    --font-inter-sb: "Inter-SemiBold";
+    --font-inter-bd: "Inter-Bold";
+
+    /* Nunito — SF Pro Rounded alternative */
+    --font-nunito: "Nunito-Regular";
+    --font-nunito-md: "Nunito-Medium";
+    --font-nunito-sb: "Nunito-SemiBold";
+    --font-nunito-bd: "Nunito-Bold";
+    --font-nunito-eb: "Nunito-ExtraBold";
+
+    /* Manrope — UI elements, nav, buttons */
+    --font-manrope: "Manrope-Regular";
+    --font-manrope-md: "Manrope-Medium";
+    --font-manrope-sb: "Manrope-SemiBold";
+    --font-manrope-bd: "Manrope-Bold";
+    --font-manrope-eb: "Manrope-ExtraBold";
+
+    /* DM Sans — body copy, descriptions */
+    --font-dm: "DMSans-Regular";
+    --font-dm-md: "DMSans-Medium";
+    --font-dm-sb: "DMSans-SemiBold";
+    --font-dm-bd: "DMSans-Bold";
+
+    /* Colors */
+    --color-background: #f5f5f7;
+    --color-foreground: #1a1a1a;
+    --color-primary: #2b7fff;
+    --color-secondary: #86868b;
+    --color-common-gray: #eaeaea;
+}
