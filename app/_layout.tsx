@@ -1,15 +1,16 @@
 import "@/global.css";
-import { useEffect } from 'react';
 import { Stack } from 'expo-router';
 import * as SplashScreen from 'expo-splash-screen';
+import { useEffect, useState } from 'react';
+import CustomSplashScreen from "@/components/SplashScreen";
 
 import {
-  useFonts,
   PlusJakartaSans_400Regular,
   PlusJakartaSans_500Medium,
   PlusJakartaSans_600SemiBold,
   PlusJakartaSans_700Bold,
   PlusJakartaSans_800ExtraBold,
+  useFonts,
 } from '@expo-google-fonts/plus-jakarta-sans';
 
 import {
@@ -41,6 +42,7 @@ import {
   DMSans_600SemiBold,
   DMSans_700Bold,
 } from '@expo-google-fonts/dm-sans';
+
 
 SplashScreen.preventAutoHideAsync();
 
@@ -80,11 +82,18 @@ export default function RootLayout() {
     'DMSans-Bold': DMSans_700Bold,
   });
 
+  const [splashFinished, setSplashFinished] = useState(false);
+
   useEffect(() => {
-    if (loaded) SplashScreen.hideAsync();
+    if (loaded) {
+      SplashScreen.hideAsync();
+      setSplashFinished(true);
+    }
   }, [loaded]);
 
-  if (!loaded) return null;
+  if (!loaded || !splashFinished) {
+    return <CustomSplashScreen onFinish={() => setSplashFinished(true)} />;
+  }
 
   return <Stack screenOptions={{ headerShown: false }} />;
 }
