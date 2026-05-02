@@ -1,97 +1,37 @@
 import "@/global.css";
-import { Stack } from 'expo-router';
-import * as SplashScreen from 'expo-splash-screen';
+import { Stack, SplashScreen } from 'expo-router';
 import { useEffect, useState } from 'react';
-import CustomSplashScreen from "@/components/SplashScreen";
-
-import {
-  PlusJakartaSans_400Regular,
-  PlusJakartaSans_500Medium,
-  PlusJakartaSans_600SemiBold,
-  PlusJakartaSans_700Bold,
-  PlusJakartaSans_800ExtraBold,
-  useFonts,
-} from '@expo-google-fonts/plus-jakarta-sans';
-
-import {
-  Inter_400Regular,
-  Inter_500Medium,
-  Inter_600SemiBold,
-  Inter_700Bold,
-} from '@expo-google-fonts/inter';
-
-import {
-  Nunito_400Regular,
-  Nunito_500Medium,
-  Nunito_600SemiBold,
-  Nunito_700Bold,
-  Nunito_800ExtraBold,
-} from '@expo-google-fonts/nunito';
-
-import {
-  Manrope_400Regular,
-  Manrope_500Medium,
-  Manrope_600SemiBold,
-  Manrope_700Bold,
-  Manrope_800ExtraBold,
-} from '@expo-google-fonts/manrope';
-
-import {
-  DMSans_400Regular,
-  DMSans_500Medium,
-  DMSans_600SemiBold,
-  DMSans_700Bold,
-} from '@expo-google-fonts/dm-sans';
+import CustomSplashScreen from "@/components/splash-screen";
+import { useFonts } from 'expo-font';
 
 
 SplashScreen.preventAutoHideAsync();
 
+
 export default function RootLayout() {
-  const [loaded] = useFonts({
-    // Plus Jakarta Sans
-    'PlusJakartaSans-Regular': PlusJakartaSans_400Regular,
-    'PlusJakartaSans-Medium': PlusJakartaSans_500Medium,
-    'PlusJakartaSans-SemiBold': PlusJakartaSans_600SemiBold,
-    'PlusJakartaSans-Bold': PlusJakartaSans_700Bold,
-    'PlusJakartaSans-ExtraBold': PlusJakartaSans_800ExtraBold,
 
-    // Inter
-    'Inter-Regular': Inter_400Regular,
-    'Inter-Medium': Inter_500Medium,
-    'Inter-SemiBold': Inter_600SemiBold,
-    'Inter-Bold': Inter_700Bold,
-
-    // Nunito (SF Pro Rounded alternative)
-    'Nunito-Regular': Nunito_400Regular,
-    'Nunito-Medium': Nunito_500Medium,
-    'Nunito-SemiBold': Nunito_600SemiBold,
-    'Nunito-Bold': Nunito_700Bold,
-    'Nunito-ExtraBold': Nunito_800ExtraBold,
-
-    // Manrope (clean geometric, great for UI)
-    'Manrope-Regular': Manrope_400Regular,
-    'Manrope-Medium': Manrope_500Medium,
-    'Manrope-SemiBold': Manrope_600SemiBold,
-    'Manrope-Bold': Manrope_700Bold,
-    'Manrope-ExtraBold': Manrope_800ExtraBold,
-
-    // DM Sans (modern humanist, great for body)
-    'DMSans-Regular': DMSans_400Regular,
-    'DMSans-Medium': DMSans_500Medium,
-    'DMSans-SemiBold': DMSans_600SemiBold,
-    'DMSans-Bold': DMSans_700Bold,
-  });
-
+  const [fontsLoaded] = useFonts({
+    'sf-pro-display-regular': require('@/assets/fonts/SFProDisplayRegular.ttf'),
+    'sf-pro-display-medium': require('@/assets/fonts/SFProDisplayMedium.ttf'),
+    'sf-pro-display-semibold': require('@/assets/fonts/SFProDisplaySemibold.ttf'),
+    'sf-pro-display-bold': require('@/assets/fonts/SFProDisplayBold.ttf'),
+    'sf-pro-display-extrabold': require('@/assets/fonts/SFProDisplayHeavy.ttf'),
+    'sf-pro-display-light': require('@/assets/fonts/SFProDisplayLight.ttf'),
+    'sf-pro-display-thin': require('@/assets/fonts/SFProDisplayThin.ttf'),
+    'sf-pro-display-ultralight': require('@/assets/fonts/SFProDisplayUltralight.ttf'),
+    'sf-pro-display-black': require('@/assets/fonts/SFProDisplayBlack.ttf'),
+  })
   const [splashFinished, setSplashFinished] = useState(false);
 
   useEffect(() => {
-    if (loaded) {
+    if (fontsLoaded) {
       SplashScreen.hideAsync();
       setSplashFinished(true);
     }
-  }, [loaded]);
+  }, [fontsLoaded]);
 
-  if (!loaded || !splashFinished) {
+
+  if (!fontsLoaded || !splashFinished) {
     return <CustomSplashScreen onFinish={() => setSplashFinished(true)} />;
   }
 

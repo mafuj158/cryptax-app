@@ -39,7 +39,22 @@
           }
         }
       ],
-      "expo-font"
+      [
+        "expo-font",
+        {
+          "fonts": [
+            "@/assets/fonts/SFProDisplayBlack.ttf",
+            "@/assets/fonts/SFProDisplayBold.ttf",
+            "@/assets/fonts/SFProDisplayHeavy.ttf",
+            "@/assets/fonts/SFProDisplayLight.ttf",
+            "@/assets/fonts/SFProDisplayMedium.ttf",
+            "@/assets/fonts/SFProDisplayRegular.ttf",
+            "@/assets/fonts/SFProDisplaySemibold.ttf",
+            "@/assets/fonts/SFProDisplayThin.ttf",
+            "@/assets/fonts/SFProDisplayUltralight.ttf"
+          ]
+        }
+      ]
     ],
     "experiments": {
       "typedRoutes": true,

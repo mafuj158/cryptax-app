@@ -63,7 +63,7 @@ const SignUpScreen = () => {
                 </View>
 
                 {/* Sign Up Button */}
-                <TouchableOpacity 
+                <TouchableOpacity
                     className='bg-primary rounded-full py-4 items-center justify-center mb-4'
                     onPress={handleSignUp}
                 >
