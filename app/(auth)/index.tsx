@@ -16,7 +16,7 @@ const HomeScreen = () => {
                 <Image source={require('@/assets/images/logo.png')} className='w-full h-full object-contain' />
             </View>
 
-            <Link className='p-3 max-w-72 w-full text-white bg-primary rounded-full text-center self-center text-lg font-semibold' href={'/(tabs)'}>
+            <Link className='p-3 max-w-72 w-full text-white bg-primary rounded-full text-center self-center text-lg font-semibold' href={'/cryptax'}>
                 Get Started
             </Link>
         </SafeAreaView>
