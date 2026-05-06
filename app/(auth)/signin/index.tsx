@@ -1,81 +1,114 @@
-import { useRouter } from 'expo-router'
-import React, { useState } from 'react'
-import { ScrollView, Text, TextInput, TouchableOpacity, View } from 'react-native'
-import { SafeAreaView } from 'react-native-safe-area-context'
+import CommonButton from '@/components/common-button'
+import CommonInput from '@/components/common-input'
+import Logo from '@/components/logo'
+import SafeAreaWrapper from '@/components/safe-area-wrapper'
+import { Link, useRouter } from 'expo-router'
+import React from 'react'
+import { useForm } from 'react-hook-form'
+import { KeyboardAvoidingView, Platform, ScrollView, Text, View } from 'react-native'
+import AppleLogin from '../components/apple-login'
+import GoogleLogin from '../components/google-login'
+import Or from '../components/or'
+import { SigninRequest } from '@/types'
+
+
+
+
 
 const SignInScreen = () => {
-    const router = useRouter()
-    const [email, setEmail] = useState('')
-    const [password, setPassword] = useState('')
 
-    const handleSignIn = () => {
+    // hooks
+    const router = useRouter()
+    const {
+        control,
+        handleSubmit,
+        formState: { errors },
+    } = useForm<SigninRequest>({
+        mode: 'onSubmit',
+        defaultValues: {
+            email: "",
+            password: "",
+        },
+    });
+
+
+
+    const handleSignIn = (data: SigninRequest) => {
         // TODO: Implement sign in logic
-        console.log('Sign in with:', { email, password })
-        router.push('/cryptax')
+        console.log("Form submitted with data:", data)
+        router.push('/cryptax/(tabs)')
+    }
+
+    const onInvalidSubmit = (errors: any) => {
+        console.log("Form validation errors:", errors);
     }
 
     return (
-        <SafeAreaView className='bg-background flex-1'>
-            <ScrollView className='bg-background px-6 py-4'>
-                <Text className='text-3xl font-bold text-foreground mb-2'>
-                    Welcome back
-                </Text>
-                <Text className='text-secondary text-base mb-8'>
-                    Sign in to your account
-                </Text>
-
-                {/* Email Input */}
-                <View className='mb-6'>
-                    <Text className='text-foreground font-medium mb-2'>Email</Text>
-                    <TextInput
-                        className='bg-common-gray rounded-lg px-4 py-3 text-foreground'
-                        placeholder='Enter your email'
-                        placeholderTextColor='#86868b'
-                        value={email}
-                        onChangeText={setEmail}
-                        keyboardType='email-address'
-                    />
+        <SafeAreaWrapper>
+            <ScrollView
+                keyboardShouldPersistTaps="handled"
+                showsVerticalScrollIndicator={false}
+                contentContainerStyle={{
+                    flexGrow: 1,
+                    justifyContent: 'center',
+                    display: 'flex',
+                    flexDirection: 'column'
+                }}>
+                {/* logo */}
+                <Logo className='self-center mb-16' />
+                {/* text */}
+                <Text className='mb-4 text-2xl font-sf-pro-display-semibold'>Sign in to CRYPTAX</Text>
+                {/* social login buttons */}
+                <View className='flex w-full flex-col gap-4'>
+                    {/* google */}
+                    <GoogleLogin />
+                    {/* apple */}
+                    <AppleLogin />
                 </View>
-
-                {/* Password Input */}
-                <View className='mb-3'>
-                    <Text className='text-foreground font-medium mb-2'>Password</Text>
-                    <TextInput
-                        className='bg-common-gray rounded-lg px-4 py-3 text-foreground'
-                        placeholder='Enter your password'
-                        placeholderTextColor='#86868b'
-                        value={password}
-                        onChangeText={setPassword}
-                        secureTextEntry
-                    />
-                </View>
-
-                {/* Forgot Password */}
-                <TouchableOpacity className='mb-8'>
-                    <Text className='text-primary font-semibold text-sm text-right'>
-                        Forgot password?
-                    </Text>
-                </TouchableOpacity>
-
-                {/* Sign In Button */}
-                <TouchableOpacity
-                    className='bg-primary rounded-full py-4 items-center justify-center mb-4'
-                    onPress={handleSignIn}
+                {/* or */}
+                <Or />
+                {/* login form */}
+                <KeyboardAvoidingView
+                    className='mb-4 flex flex-col gap-4'
+                    behavior={Platform.OS === "ios" ? "padding" : "height"}
                 >
-                    <Text className='text-white font-semibold text-base'>
-                        Sign in
-                    </Text>
-                </TouchableOpacity>
-
-                {/* Sign Up Link */}
-                <View className='flex-row justify-center items-center'>
-                    <Text className='text-secondary'>Don&apos;t have an account? </Text>
-                    <TouchableOpacity onPress={() => router.push('/signup')}>
-                        <Text className='text-primary font-semibold'>Sign up</Text>
-                    </TouchableOpacity>
-                </View>
+                    {/* email */}
+                    <CommonInput
+                        validationRules={{
+                            required: "Email is required",
+                            pattern: {
+                                value: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i,
+                                message: "Invalid email address"
+                            }
+                        }}
+                        type='email'
+                        label='Email'
+                        control={control}
+                        errors={errors}
+                        register_as='email'
+                    />
+                    {/* password */}
+                    <CommonInput
+                        validationRules={{
+                            required: "Password is required",
+                        }}
+                        type='password'
+                        label='Password'
+                        control={control}
+                        errors={errors}
+                        register_as='password'
+                    />
+                    <CommonButton className='mt-2' onPress={handleSubmit(handleSignIn, onInvalidSubmit)}>
+                        Sign In
+                    </CommonButton>
+                </KeyboardAvoidingView>
+                {/* footer text */}
+                <Text className='text-black text-center text-base font-medium'>
+                    <Text>Don&#39;t have an account? </Text>
+                    <Link href={'/(auth)/signup'} className='text-primary font-sf-pro-display-bold'>Sign Up</Link>
+                </Text>
             </ScrollView>
-        </SafeAreaView>
+        </SafeAreaWrapper>
     )
 }
 

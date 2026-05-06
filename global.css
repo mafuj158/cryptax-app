@@ -4,7 +4,6 @@
 
 @import "nativewind/theme";
 
-
 @theme {
   /* Colors */
   --color-background: #f5f5f7;
@@ -24,4 +23,11 @@
   --font-sf-pro-display-semibold: sf-pro-display-semibold;
   --font-sf-pro-display-thin: sf-pro-display-thin;
   --font-sf-pro-display-ultralight: sf-pro-display-ultralight;
+  --font-family: sf-pro-display-regular;
+}
+
+@layer base {
+  * {
+    @apply font-sf-pro-display-regular;
+  }
 }
