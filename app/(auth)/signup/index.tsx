@@ -51,15 +51,16 @@ const SignUpScreen = () => {
                     flexGrow: 1,
                     justifyContent: 'center',
                     display: 'flex',
-                    flexDirection: 'column'
+                    flexDirection: 'column',
+                    paddingVertical: 12,
                 }}>
                 {/* logo */}
-                <Logo className='self-center mb-16' />
+                <Logo className='self-center mb-10' />
                 {/* text */}
                 <Text className='mb-4 text-2xl font-sf-pro-display-semibold'>Sign up to CRYPTAX</Text>
                 {/* login form */}
                 <KeyboardAvoidingView
-                    className='mb-4 flex flex-col gap-4'
+                    className='mb-4 flex flex-col gap-3'
                     behavior={Platform.OS === "ios" ? "padding" : "height"}
                 >
                     {/* first name */}
