@@ -1,70 +1,62 @@
+import AiIcon from "@/components/icons/ai"
+import CrypstoreIcon from "@/components/icons/crypstore"
+import NewsIcon from "@/components/icons/news"
+
 import { Tabs } from "expo-router"
-import { Image, View } from "react-native"
+import { View } from "react-native"
+
+type TabRoute = {
+    name: string
+    title: string
+    icon: React.ComponentType<{ focused: boolean }>
+}
 
 const TabLayout = () => {
 
-    const tabRoutes = [
+    const tabRoutes: TabRoute[] = [
         {
             name: "index",
             title: "News",
-            focusedIcon: require("@/assets/icons/focused-news.png"),
-            unfocusedIcon: require("@/assets/icons/unfocused-news.png")
+            icon: NewsIcon,
         },
         {
             name: "ai-search",
             title: "AI Search",
-            focusedIcon: require("@/assets/icons/focused-ai.png"),
-            unfocusedIcon: require("@/assets/icons/unfocused-ai.png")
+            icon: AiIcon,
         },
         {
             name: "crypstore",
             title: "Crypstore",
-            focusedIcon: require("@/assets/icons/focused-ai.png"),
-            unfocusedIcon: require("@/assets/icons/unfocused-ai.png")
-        },
-        {
-            name: "more",
-            title: "More",
-            focusedIcon: require("@/assets/icons/focused-news.png"),
-            unfocusedIcon: require("@/assets/icons/unfocused-news.png")
-        },
-        {
-            name: "setting",
-            title: "Setting",
-            focusedIcon: require("@/assets/icons/focused-news.png"),
-            unfocusedIcon: require("@/assets/icons/unfocused-news.png")
+            icon: CrypstoreIcon,
         },
     ]
 
     const renderTabs = () => {
-        return tabRoutes.map((route) => (
-            <Tabs.Screen
-                key={route.name}
-                name={route.name}
-                options={{
-                    title: route.title,
-                    tabBarIcon: ({ focused }) => (
-                        <View className="flex size-6 justify-center items-center">
-                            <Image
-                                source={focused ? route.focusedIcon : route.unfocusedIcon}
-                                className="w-full h-full object-contain"
-                            />
-                        </View>
-                    )
-                }}
-            />
-        ))
+        return tabRoutes.map((route) => {
+            const IconComponent = route.icon
+            return (
+                <Tabs.Screen
+                    key={route.name}
+                    name={route.name}
+                    options={{
+                        title: route.title,
+                        tabBarIcon: ({ focused }) => (
+                            <View className="flex size-6 justify-center items-center">
+                                <IconComponent focused={focused} />
+                            </View>
+                        )
+                    }}
+                />
+            )
+        })
     }
 
-
-    // main render
     return (
         <Tabs screenOptions={{
             headerShown: false,
             tabBarActiveTintColor: '#2b7fff',
             tabBarInactiveTintColor: '#373737',
             tabBarStyle: {
-
                 backgroundColor: '#ffffff',
                 shadowColor: '#000',
                 height: 70,
@@ -86,4 +78,4 @@ const TabLayout = () => {
     )
 }
 
-export default TabLayout;
+export default TabLayout
